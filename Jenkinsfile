@@ -15,8 +15,8 @@ pipeline {
                             sh 'mvn clean install -DskipTests'
                             sh 'mvn package -DskipTests'
                             sh 'mvn deploy'
-                            sh 'docker build -t brodygaudel/discovery-service:latest .'
-                            sh 'docker push brodygaudel/discovery-service:latest'
+                            sh 'docker build -t mounanga/discovery-service:latest .'
+                            sh 'docker push mounanga/discovery-service:latest'
                         }
                     }
                 }
@@ -26,8 +26,8 @@ pipeline {
                             sh 'mvn clean install -DskipTests'
                             sh 'mvn package -DskipTests'
                             sh 'mvn deploy'
-                            sh 'docker build -t brodygaudel/gateway-service:latest .'
-                            sh 'docker push brodygaudel/gateway-service:latest'
+                            sh 'docker build -t mounanga/gateway-service:latest .'
+                            sh 'docker push mounanga/gateway-service:latest'
                         }
                     }
                 }
@@ -38,8 +38,8 @@ pipeline {
                             sh 'mvn test'
                             sh 'mvn package -DskipTests'
                             sh 'mvn deploy'
-                            sh 'docker build -t brodygaudel/customer-service:latest .'
-                            sh 'docker push brodygaudel/customer-service:latest'
+                            sh 'docker build -t mounanga/customer-service:latest .'
+                            sh 'docker push mounanga/customer-service:latest'
                         }
                     }
                 }
@@ -50,8 +50,8 @@ pipeline {
                             sh 'mvn test'
                             sh 'mvn package -DskipTests'
                             sh 'mvn deploy'
-                            sh 'docker build -t brodygaudel/account-service:latest .'
-                            sh 'docker push brodygaudel/account-service:latest'
+                            sh 'docker build -t mounanga/account-service:latest .'
+                            sh 'docker push mounanga/account-service:latest'
                         }
                     }
                 }
