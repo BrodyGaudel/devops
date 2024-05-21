@@ -125,6 +125,51 @@
 	    <url>http://192.168.87.129:8081/repository/maven-snapshots/</url>
 	</snapshotRepository>
     </distributionManagement>
+	<repositories>
+        <repository>
+            <id>maven-releases</id>
+            <url>http://192.168.87.129:8081/repository/maven-releases/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>maven-snapshots</id>
+            <url>http://192.168.87.129:8081/repository/maven-snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>maven-releases</id>
+            <url>http://192.168.87.129:8081/repository/maven-releases/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>maven-snapshots</id>
+            <url>http://192.168.87.129:8081/repository/maven-snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 
 	<build>
 		<plugins>
