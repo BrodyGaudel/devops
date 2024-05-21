@@ -113,64 +113,17 @@
 		</dependencies>
 	</dependencyManagement>
 	<!-- Configuration de Distribution Management pour le déploiement sur Nexus -->
-    <distributionManagement>
-	<repository>
-	    <id>releases</id>
-	    <name>maven-releases</name>
-	    <url>http://192.168.87.129:8081/repository/maven-releases/</url>
-	</repository>
-	<snapshotRepository>
-	    <id>snapshots</id>
-	    <name>maven-snapshots</name>
-	    <url>http://192.168.87.129:8081/repository/maven-snapshots/</url>
-	</snapshotRepository>
+     <distributionManagement>
+        <repository>
+            <id>maven-releases</id>
+            <url>http://192.168.87.129:8081/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>maven-snapshots</id>
+            <url>http://192.168.87.129:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
     </distributionManagement>
-	<repositories>
-        <repository>
-            <id>maven-releases</id>
-            <url>http://192.168.87.129:8081/repository/maven-releases/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>maven-snapshots</id>
-            <url>http://192.168.87.129:8081/repository/maven-snapshots/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>maven-releases</id>
-            <url>http://192.168.87.129:8081/repository/maven-releases/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-        <pluginRepository>
-            <id>maven-snapshots</id>
-            <url>http://192.168.87.129:8081/repository/maven-snapshots/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-
+	
 	<build>
 		<plugins>
 			<plugin>
@@ -185,6 +138,14 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+                	       <groupId>org.apache.maven.plugins</groupId>
+                		<artifactId>maven-deploy-plugin</artifactId>
+                		<version>3.1.1</version>
+                		<configuration>
+                    			<altDeploymentRepository>maven-releases::default::http://192.168.87.129:8081/repository/maven-releases/</altDeploymentRepository>
+                		</configuration>
+            		</plugin>
 		</plugins>
 	</build>
 
