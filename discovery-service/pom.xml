@@ -41,6 +41,20 @@
 		</dependencies>
 	</dependencyManagement>
 
+	<!-- Configuration de Distribution Management pour le déploiement sur Nexus -->
+    <distributionManagement>
+	<repository>
+	    <id>releases</id>
+	    <name>Releases Repository</name>
+	    <url>http://localhost/repository/releases/</url>
+	</repository>
+	<snapshotRepository>
+	    <id>snapshots</id>
+	    <name>Snapshots Repository</name>
+	    <url>http://localhost/repository/snapshots/</url>
+	</snapshotRepository>
+    </distributionManagement>
+
 	<build>
 		<plugins>
 			<plugin>
