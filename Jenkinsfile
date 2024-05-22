@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/BrodyGaudel/devops.git'
+                sh 'git clone https://github.com/BrodyGaudel/devops.git'
             }
         }
         stage('Build and Test') {
