@@ -14,7 +14,6 @@ pipeline {
                         dir('devops/discovery-service') {
                             sh 'mvn clean install -DskipTests'
                             sh 'mvn package -DskipTests'
-                            sh 'mvn deploy -P maven-releases -DskipTests'
                             sh 'docker build -t mounanga/discovery-service:latest .'
                             sh 'docker push mounanga/discovery-service:latest'
                         }
@@ -25,7 +24,6 @@ pipeline {
                         dir('devops/gateway-service') {
                             sh 'mvn clean install -DskipTests'
                             sh 'mvn package -DskipTests'
-                            sh 'mvn deploy -P maven-releases -DskipTests'
                             sh 'docker build -t mounanga/gateway-service:latest .'
                             sh 'docker push mounanga/gateway-service:latest'
                         }
@@ -37,7 +35,6 @@ pipeline {
                             sh 'mvn clean install -DskipTests'
                             sh 'mvn test'
                             sh 'mvn package -DskipTests'
-                            sh 'mvn deploy -P maven-releases -DskipTests'
                             sh 'docker build -t mounanga/customer-service:latest .'
                             sh 'docker push mounanga/customer-service:latest'
                         }
@@ -49,7 +46,6 @@ pipeline {
                             sh 'mvn clean install -DskipTests'
                             sh 'mvn test'
                             sh 'mvn package -DskipTests'
-                            sh 'mvn deploy -P maven-releases -DskipTests'
                             sh 'docker build -t mounanga/account-service:latest .'
                             sh 'docker push mounanga/account-service:latest'
                         }
