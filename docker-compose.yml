@@ -36,7 +36,7 @@ services:
     environment:
       - DISCOVERY_SERVER=http://discovery-service:8761/eureka/
       - MYSQL_USER=root
-      - MYSQL_PWD=root
+      - MYSQL_PWD=rootroot
       - MYSQL_HOST=172.18.0.2
       - MYSQL_PORT=3306
       - MYSQL_DATABASE=customer_db
@@ -56,7 +56,7 @@ services:
     environment:
       - DISCOVERY_SERVER=http://discovery-service:8761/eureka/
       - MYSQL_USER=root
-      - MYSQL_PWD=root
+      - MYSQL_PWD=rootroot
       - MYSQL_HOST=172.18.0.2
       - MYSQL_PORT=3306
       - MYSQL_DATABASE=account_db
