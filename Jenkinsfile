@@ -9,16 +9,16 @@ pipeline {
         }
         stage('INSTALL'){
             steps{
-                sh 'cd discovery-service'
+                sh 'cd /discovery-service'
                 sh 'mvn clean install -DskipTests'
                 sh 'cd ..'
-                sh 'cd gateway-service'
+                sh 'cd /gateway-service'
                 sh 'mvn clean install -DskipTests'
                 sh 'cd ..'
-                sh 'cd customer-service'
+                sh 'cd /customer-service'
                 sh 'mvn clean install -DskipTests'
                 sh '..'
-                sh 'cd account-service'
+                sh 'cd /account-service'
                 sh 'mvn clean install -DskipTests'
                 sh 'cd ..'
             }
