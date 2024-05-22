@@ -2,58 +2,72 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone Repository') {
+        stage('CLONE') {
             steps {
                 sh 'git clone https://github.com/BrodyGaudel/devops.git'
             }
         }
-        stage('Build and Test') {
-            parallel {
-                stage('Discovery-Service') {
-                    steps {
-                        dir('devops/discovery-service') {
-                            sh 'mvn clean install -DskipTests'
-                            sh 'mvn package -DskipTests'
-                            sh 'docker build -t mounanga/discovery-service:latest .'
-                        }
-                    }
-                }
-                stage('Gateway-Service') {
-                    steps {
-                        dir('devops/gateway-service') {
-                            sh 'mvn clean install -DskipTests'
-                            sh 'mvn package -DskipTests'
-                            sh 'docker build -t mounanga/gateway-service:latest .'
-                        }
-                    }
-                }
-                stage('Customer-Service') {
-                    steps {
-                        dir('devops/customer-service') {
-                            sh 'mvn clean install -DskipTests'
-                            sh 'mvn test'
-                            sh 'mvn package -DskipTests'
-                            sh 'docker build -t mounanga/customer-service:latest .'
-                        }
-                    }
-                }
-                stage('Account-Service') {
-                    steps {
-                        dir('devops/account-service') {
-                            sh 'mvn clean install -DskipTests'
-                            sh 'mvn test'
-                            sh 'mvn package -DskipTests'
-                            sh 'docker build -t mounanga/account-service:latest .'
-                        }
-                    }
-                }
+        stage('INSTALL'){
+            steps{
+                sh 'cd discovery-service'
+                sh 'mvn clean install -DskipTests'
+                sh 'cd ..'
+                sh 'cd gateway-service'
+                sh 'mvn clean install -DskipTests'
+                sh 'cd ..'
+                sh 'cd customer-service'
+                sh 'mvn clean install -DskipTests'
+                sh '..'
+                sh 'cd account-service'
+                sh 'mvn clean install -DskipTests'
+                sh 'cd ..'
             }
         }
-        stage('Deploy with Docker Compose') {
-            steps {
-                dir('devops') {
-                    sh 'docker-compose up -d'
-                }
+        stage('TEST'){
+            steps{
+                sh 'cd customer-service'
+                sh 'mvn test'
+                sh '..'
+                sh 'cd account-service'
+                sh 'mvn test'
+                sh 'cd ..'
+            }
+        }
+        stage('PACKAGE'){
+            steps{
+                sh 'cd discovery-service'
+                sh 'mvn package -DskipTests'
+                sh 'cd ..'
+                sh 'cd gateway-service'
+                sh 'mvn package -DskipTests'
+                sh 'cd ..'
+                sh 'cd customer-service'
+                sh 'mvn package -DskipTests'
+                sh '..'
+                sh 'cd account-service'
+                sh 'mvn package -DskipTests'
+                sh 'cd ..'
+            }
+        }
+        stage('IMAGE') {
+            steps{
+                sh 'cd discovery-service'
+                sh 'docker build -t discovery-service .'
+                sh 'cd ..'
+                sh 'cd gateway-service'
+                sh 'docker build -t gateway-service .'
+                sh 'cd ..'
+                sh 'cd customer-service'
+                sh 'docker build -t customer-service .'
+                sh '..'
+                sh 'cd account-service'
+                sh 'docker build -t account-service .'
+                sh 'cd ..'
+            }
+        }
+        stage('RUN') {
+            steps{
+                sh 'docker-compose up -d'
             }
         }
     }
