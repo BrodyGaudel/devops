@@ -4,6 +4,7 @@ pipeline {
     environment {
         DOCKER_CREDENTIALS_ID = 'docker-hub-credentials'
         DOCKER_HUB_REPO = 'mounanga'
+        KUBECONFIG_CREDENTIALS_ID = 'kubeconfig-credentials'
     }
 
     stages {
@@ -82,10 +83,17 @@ pipeline {
                 }
             }
         }
-        stage('RUN') {
+        stage('DEPLOY') {
             steps {
-                dir('devops') {
-                    sh 'docker-compose up -d'
+                script {
+                    withCredentials([file(credentialsId: KUBECONFIG_CREDENTIALS_ID, variable: 'KUBECONFIG')]) {
+                        sh 'kubectl apply -f devops/k8s/discovery-service.yaml'
+                        sh 'kubectl apply -f devops/k8s/gateway-service.yaml'
+                        sh 'kubectl apply -f devops/k8s/customer-service.yaml'
+                        sh 'kubectl apply -f devops/k8s/account-service.yaml'
+                        sh 'kubectl apply -f devops/k8s/mysql-service.yaml'
+                        sh 'kubectl apply -f devops/k8s/axon-server.yaml'
+                    }
                 }
             }
         }
