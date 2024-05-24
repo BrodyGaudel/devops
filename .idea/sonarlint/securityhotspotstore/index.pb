@@ -15,3 +15,5 @@ B
 mysql-service.yaml,f\e\fe9c913db3e04f5833d18ee444981808792b4566
 ;
 Jenkinsfile,0\c\0c2c5c506cef0ed2d3ad2b7e45e97980b66f5520
+?
+kubeconfig.yaml,c\7\c7cb01ec1808c9cbcc07225026f26d179006f464
