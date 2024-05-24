@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: account-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: account-service
+  template:
+    metadata:
+      labels:
+        app: account-service
+    spec:
+      containers:
+        - name: account-service
+          image: mounanga/account-service
+          ports:
+            - containerPort: 8880
+          env:
+            - name: DISCOVERY_SERVER
+              value: "http://discovery-service:8761/eureka/"
+            - name: MYSQL_USER
+              value: "root"
+            - name: MYSQL_PWD
+              value: "rootroot"
+            - name: MYSQL_HOST
+              value: "mysql-service"
+            - name: MYSQL_PORT
+              value: "3306"
+            - name: MYSQL_DATABASE
+              value: "account_db"
+            - name: AXON_HOST
+              value: "axon-server"
+            - name: AXON_PORT
+              value: "8124"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: account-service
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8880
+      targetPort: 8880
+  selector:
+    app: account-service

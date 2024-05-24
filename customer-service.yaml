@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customer-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: customer-service
+  template:
+    metadata:
+      labels:
+        app: customer-service
+    spec:
+      containers:
+        - name: customer-service
+          image: mounanga/customer-service
+          ports:
+            - containerPort: 8881
+          env:
+            - name: DISCOVERY_SERVER
+              value: "http://discovery-service:8761/eureka/"
+            - name: MYSQL_USER
+              value: "root"
+            - name: MYSQL_PWD
+              value: "rootroot"
+            - name: MYSQL_HOST
+              value: "mysql-service"
+            - name: MYSQL_PORT
+              value: "3306"
+            - name: MYSQL_DATABASE
+              value: "customer_db"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: customer-service
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8881
+      targetPort: 8881
+  selector:
+    app: customer-service
