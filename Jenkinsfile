@@ -87,12 +87,12 @@ pipeline {
             steps {
                 script {
                     withCredentials([file(credentialsId: KUBECONFIG_CREDENTIALS_ID, variable: 'KUBECONFIG')]) {
+                        sh 'kubectl apply -f devops/k8s/mysql-service.yaml'
+                        sh 'kubectl apply -f devops/k8s/axon-server.yaml'
                         sh 'kubectl apply -f devops/k8s/discovery-service.yaml'
                         sh 'kubectl apply -f devops/k8s/gateway-service.yaml'
                         sh 'kubectl apply -f devops/k8s/customer-service.yaml'
                         sh 'kubectl apply -f devops/k8s/account-service.yaml'
-                        sh 'kubectl apply -f devops/k8s/mysql-service.yaml'
-                        sh 'kubectl apply -f devops/k8s/axon-server.yaml'
                     }
                 }
             }
